@@ -1,0 +1,67 @@
+Uma tarefa de aprendizado de conceito de classes utilizando Typescript (ts)
+
+Criar um sistema básico para gerenciar livros e usuários em uma biblioteca, utilizando o conceito de classes em TypeScript.
+O sistema deve permitir adicionar livros, registrar usuários, emprestar livros e listar os livros emprestados por cada usuário. 
+Não faça HTML nem CSS para esta tarefa.
+O sistema não precisa ter uma interface visual, faça toda demonstração de dados pelo console.log.
+
+Requisitos da tarefa:
+Iniciar um projeto Typescript (How to set up TypeScript) desacoplado dos arquivos da Fortmobile. Crie um arquivo library.ts onde você vai rodar a lógica do sistema.
+
+O sistema deve conter seis classes: 
+
+Book - responsável por representar o livro 
+
+User - responsável por representar o usuário que usa a biblioteca. A classe User funcionará como uma classe base para as duas classes
+
+StudentUser - responsável por representar um estudante.
+
+ProfessorUser - responsável por representar um professor.
+
+Library - responsável por representar a biblioteca, contendo os usuários e livros registrados.
+
+System - a classe principal, responsável por executar o fluxo do sistema, instanciar as classes e executar os métodos
+
+O sistema deve seguir as seguintes regras de negócio:
+
+Um livro deve ter as informações de nome e autor 
+
+Um estudante deve ter as informações de nome 
+
+Um usuário pode emprestar um livro 
+
+O usuário pode listar quantos livros estão emprestados
+
+Um livro não pode ser emprestado se já estiver marcado como emprestado
+
+Um usuário estudante só pode emprestar no máximo 3 livros ao mesmo tempo.
+
+Um usuário professor só pode emprestar no máximo 5 livros ao mesmo tempo.
+
+O sistema pode listar quais livros estão emprestados e quais não estão emprestados
+
+O sistema pode registrar usuários
+
+O sistema pode registrar livros
+
+O que é esperado para esta tarefa:
+
+Escrever o código seguindo os conceitos POO, com instanciação de classes, utilização de métodos, propriedades e modificadores de visibilidade de classe.
+
+Que o seguinte fluxo seja simulado na classe System
+
+Seis livros sejam registrados, validando a regra de negócio j
+
+Um usuário estudante seja registrado, validando a regra de negócio i
+
+Um usuário professor seja registrado, validando a regra de negócio i
+
+Que um usuário (qualquer tipo) empreste um livro e mostre o número de livros emprestados, validando a regra de negócio c - d
+
+Que um outro usuário tente emprestar o livro emprestado para o usuário anterior, validando a regra de negócio e
+
+Que um usuário estudante tente emprestar mais de três livros, validando a regra de negócio f
+
+Que um usuário professor tente emprestar mais de cinco livros, validando a regra de negócio g
+
+O sistema deve listar quais livros estão emprestados, e para quem, validando a regra h
