@@ -13,7 +13,7 @@
   "license": "ISC",
   "author": "RafaelUeda",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "library.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
