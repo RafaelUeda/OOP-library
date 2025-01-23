@@ -1,0 +1,20 @@
+{
+  "name": "oop-library",
+  "version": "1.0.0",
+  "description": "Task to learn OOP with typescript",
+  "homepage": "https://github.com/RafaelUeda/OOP-library#readme",
+  "bugs": {
+    "url": "https://github.com/RafaelUeda/OOP-library/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelUeda/OOP-library.git"
+  },
+  "license": "ISC",
+  "author": "RafaelUeda",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
