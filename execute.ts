@@ -1,5 +1,7 @@
 import { Book, User, StudentUser, ProfessorUser, Library } from "./library";
 
+const prompt = require('prompt-sync')();
+
 // Classe principal, responsável por executar o fluxo de sistema, instanciar as classes e executar os métodos
 export class System {
     // you should define class properties and initialize them inside the constructor
@@ -11,4 +13,6 @@ export class System {
     }
 }
 
-console.log(new System())
+console.log(new System());
+var teste = prompt("Digite algo: ");
+console.log(teste);
