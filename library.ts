@@ -4,25 +4,36 @@ const prompt = require('prompt-sync')();
 
 // Classe responsável por representar o livro
 export class Book {
-    private bookName: string;
-    private author: string;
+    private bookName: string = '';
+    private author: string = '';
+    public emprestado: boolean = false;
 
     constructor(bookName: string, author: string) {
         this.bookName = bookName;
         this.author = author;
     }
-
-    public getBookInfo(): string {
-        return 'Book: ${this.bookName}, Author: ${this.author}'
-    }
 }
 
 export class User {
-    private userName: string;
+    public userName: string;
+    public userBooks: Book[] = [];
     public maxBooks: number = 0;
 
     constructor(userName: string) {
         this.userName = userName;
+    }
+
+    public lendBook(book: Book): void {
+        if (book.emprestado === false) {
+            this.userBooks.push(book)
+            book.emprestado = true
+        } else {
+            console.log("Este livro já está emprestado")
+        }
+    }
+
+    public countBooks(): number {
+        return this.userBooks.length
     }
 }
 
@@ -30,14 +41,40 @@ export class User {
 export class StudentUser extends User {
     maxBooks: number = 3;
 
-    public lendBook(): Book[] {
-        return []
+    constructor(userName: string) {
+        super(userName);
+    }
+
+    public lendBook(book: Book): void {
+        if (book.emprestado === false && this.userBooks.length < this.maxBooks) {
+            this.userBooks.push(book)
+            book.emprestado = true
+        } else if (book.emprestado === false) {
+            console.log("Este livro já foi emprestado")
+        } else if (this.userBooks.length < this.maxBooks) {
+            console.log(this.userName, " já emprestou 3 livros")
+        }
     }
 }
 
 // Classe do professor que herda (inheritance) User
 export class ProfessorUser extends User {
     maxBooks: number = 5;
+
+    constructor(userName: string) {
+        super(userName)
+    }
+
+    public lendBook(book: Book): void {
+        if (book.emprestado === false && this.userBooks.length < this.maxBooks) {
+            this.userBooks.push(book)
+            book.emprestado = true
+        } else if (this.userBooks.length < this.maxBooks) {
+            console.log(this.userName, " já emprestou 5 livros")
+        } else {
+            console.log("Este livro já foi emprestado")
+        }
+    }
 }
 
 // Classe responsável por representar a biblioteca, contém livros e usuários
@@ -52,16 +89,21 @@ export class Library {
     public addUser(user: User) {
         this.users.push(user)
     }
-}
 
-// Classe principal, responsável por executar o fluxo de sistema, instanciar as classes e executar os métodos
-export class System {
-    // you should define class properties and initialize them inside the constructor
-    private library: Library;
+    public listBookLent(): void {
+        let booksLent: number = 0;
+        let booksNotLent: number = 0;
 
-    constructor() {
-        this.library = new Library();
+        this.books.find((book) => {
+            if (book.emprestado === false) {
+                booksNotLent++;
+            } else if (book.emprestado === true) {
+                booksLent++;
+            } else {
+                return null;
+            }
+        })
+
+        console.log(booksLent, "livros estão emprestados e", booksNotLent, "não estão.")
     }
 }
-
-const system = new System();

@@ -45,3 +45,18 @@ class Car {
 
 let creta = new Car("Creta", "Renault", 2016)
 console.log(creta.getName(), creta.getModel(), creta.getYear())
+
+class A {
+    print() {
+        console.log("I am class A");
+    }
+}
+
+class B extends A {
+    print() {
+        console.log("I am class B");
+    }
+}
+
+const printa = new B();
+printa.print();
