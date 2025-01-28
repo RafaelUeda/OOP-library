@@ -24,11 +24,13 @@ export class User {
     }
 
     public lendBook(book: Book): void {
-        if (book.emprestado === false) {
+        if (book.emprestado === true) {
+            console.log("Este livro já foi emprestado")
+        } else if (this.userBooks.length >= this.maxBooks) {
+            console.log(this.userName, `já emprestou ${this.maxBooks} livros`)
+        } else {
             this.userBooks.push(book)
             book.emprestado = true
-        } else {
-            console.log("Este livro já está emprestado")
         }
     }
 
@@ -45,16 +47,6 @@ export class StudentUser extends User {
         super(userName);
     }
 
-    public lendBook(book: Book): void {
-        if (book.emprestado === true) {
-            console.log("Este livro já foi emprestado")
-        } else if (this.userBooks.length >= this.maxBooks) {
-            console.log(this.userName, "já emprestou 3 livros")
-        } else {
-            this.userBooks.push(book)
-            book.emprestado = true
-        }
-    }
 }
 
 // Classe do professor que herda (inheritance) User
@@ -63,17 +55,6 @@ export class ProfessorUser extends User {
 
     constructor(userName: string) {
         super(userName)
-    }
-
-    public lendBook(book: Book): void {
-        if (book.emprestado === true) {
-            console.log("Este livro já foi emprestado")
-        } else if (this.userBooks.length >= this.maxBooks) {
-            console.log(this.userName, "já emprestou 5 livros")
-        } else {
-            this.userBooks.push(book)
-            book.emprestado = true
-        }
     }
 }
 
@@ -129,7 +110,7 @@ export class System {
         bib.addUser(professor)
     }
 
-    execute(): any {
+    execute(): void {
         estudante.lendBook(bib.books[0]) // estudante empresta um livro
         console.log(estudante.countBooks()) // retorna 1, contagem dos livros do estudante
         professor.lendBook(bib.books[0]) // professor tenta emprestar o mesmo livro, mas não é permitido
@@ -160,4 +141,4 @@ const estudante = new StudentUser("Rafael")
 const professor = new ProfessorUser("Armando")
 
 const system = new System(bib, estudante, professor)
-console.log(system.execute())
+system.execute()
