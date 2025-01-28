@@ -46,13 +46,13 @@ export class StudentUser extends User {
     }
 
     public lendBook(book: Book): void {
-        if (book.emprestado === false && this.userBooks.length < this.maxBooks) {
+        if (book.emprestado === true) {
+            console.log("Este livro já foi emprestado")
+        } else if (this.userBooks.length >= this.maxBooks) {
+            console.log(this.userName, "já emprestou 3 livros")
+        } else {
             this.userBooks.push(book)
             book.emprestado = true
-        } else if (book.emprestado === false) {
-            console.log("Este livro já foi emprestado")
-        } else if (this.userBooks.length < this.maxBooks) {
-            console.log(this.userName, " já emprestou 3 livros")
         }
     }
 }
@@ -66,13 +66,13 @@ export class ProfessorUser extends User {
     }
 
     public lendBook(book: Book): void {
-        if (book.emprestado === false && this.userBooks.length < this.maxBooks) {
+        if (book.emprestado === true) {
+            console.log("Este livro já foi emprestado")
+        } else if (this.userBooks.length >= this.maxBooks) {
+            console.log(this.userName, "já emprestou 5 livros")
+        } else {
             this.userBooks.push(book)
             book.emprestado = true
-        } else if (this.userBooks.length < this.maxBooks) {
-            console.log(this.userName, " já emprestou 5 livros")
-        } else {
-            console.log("Este livro já foi emprestado")
         }
     }
 }
@@ -81,6 +81,10 @@ export class ProfessorUser extends User {
 export class Library {
     public books: Book[] = []
     public users: User[] = []
+
+    constructor() {
+
+    }
 
     public addBook(book: Book) {
         this.books.push(book)
@@ -99,11 +103,61 @@ export class Library {
                 booksNotLent++;
             } else if (book.emprestado === true) {
                 booksLent++;
-            } else {
-                return null;
             }
         })
 
-        console.log(booksLent, "livros estão emprestados e", booksNotLent, "não estão.")
+        if (booksLent === 1) {
+            console.log(booksLent, "livro está emprestado e", booksNotLent, "não estão.")
+        } else if (booksNotLent === 1) {
+            console.log(booksLent, "livros estão emprestados e", booksNotLent, "não está.")
+        } else {
+            console.log(booksLent, "livros estão emprestados e", booksNotLent, "não estão.")
+        }
     }
 }
+
+export class System {
+    constructor(bib: Library, estudante: StudentUser, professor: ProfessorUser) {
+        bib.addBook(new Book("Livro1", "Fernando"))
+        bib.addBook(new Book("Livro2", "Fernando"))
+        bib.addBook(new Book("Livro3", "Fernando"))
+        bib.addBook(new Book("Livro4", "Fernando"))
+        bib.addBook(new Book("Livro5", "Fernando"))
+        bib.addBook(new Book("Livro6", "Fernando"))
+
+        bib.addUser(estudante)
+        bib.addUser(professor)
+    }
+
+    execute(): any {
+        estudante.lendBook(bib.books[0]) // estudante empresta um livro
+        console.log(estudante.countBooks()) // retorna 1, contagem dos livros do estudante
+        professor.lendBook(bib.books[0]) // professor tenta emprestar o mesmo livro, mas não é permitido
+
+        estudante.lendBook(bib.books[1])
+        estudante.lendBook(bib.books[2])
+        estudante.lendBook(bib.books[3]) // estudante tenta emprestar mais de 3 livros, retorna que não é permitido
+
+        professor.lendBook(bib.books[3])
+        professor.lendBook(bib.books[4])
+        professor.lendBook(bib.books[5])
+
+        bib.addBook(new Book("Livro7", "Fernando"))
+        bib.addBook(new Book("Livro8", "Fernando"))
+        bib.addBook(new Book("Livro9", "Fernando")) // tive que adicionar mais livros, para validar a regra de negócio g
+
+        professor.lendBook(bib.books[6])
+        professor.lendBook(bib.books[7])
+        professor.lendBook(bib.books[8]) // professor tenta emprestar mais de 5 livros, retorna que não é permitido
+
+        bib.listBookLent()
+    }
+
+}
+
+const bib = new Library()
+const estudante = new StudentUser("Rafael")
+const professor = new ProfessorUser("Armando")
+
+const system = new System(bib, estudante, professor)
+console.log(system.execute())
